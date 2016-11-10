@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
 	int numZero = 0, numOne = 0, numTwo = 0, numThree = 0, numFour = 0,
 		numFive = 0, numSix = 0, numSeven = 0, numEight = 0, numNine = 0;
 
-	int laplace_k = 9;
+	double laplace_k = 10;
 	int laplace_V = 2;
 
 
@@ -211,7 +211,6 @@ int main(int argc, char** argv) {
 
 	// starting training
 	for (int i = 0; i < training_images.size(); i++) { // for each image
-		cout << training_images[i].real_number << endl;
 		for (int x = 0; x < 28; x++) { 				    // for each pixel
 			for (int y = 0; y < 28; y++) {
 				if (training_images[i].image_data[x][y] == '1') {
@@ -221,11 +220,13 @@ int main(int argc, char** argv) {
 		}
 	}
 	// do division & laplacian smoothing
-	for (int m = 0; m < 28; m++) {
-		for (int n = 0; n < 28; n++) {
-			// for digit 0
-			global[0][m*28+n] += laplace_k;
-			global[0][m*28+n] /= (numZero + laplace_k * laplace_V);
+	for (int z = 0; z < 10; z++) { //for each digit
+		for (int m = 0; m < 28; m++) {
+			for (int n = 0; n < 28; n++) {
+				// for digit 0
+				global[z][m*28+n] += laplace_k;
+				global[z][m*28+n] /= (numZero + laplace_k * laplace_V);
+			}
 		}
 	}
 
@@ -260,18 +261,22 @@ int main(int argc, char** argv) {
 	// TESTING, MAP classification
 
 	cout << "JOHN CENA" << endl;
-	cout << testing_images[0].real_number << endl;
-	for (int i = 0; i < 28; i++) {
-		for (int j = 0; j < 28; j++) {
-			//check digit 0
-
-			//check digit 1
-
-			//check digit 2
-
-			//check digit 3
+	cout << "The test number is: " << testing_images[0].real_number << endl;
+	for (int k = 0; k < 10; k++) { 	// for each digit
+		double probability = 0, temp = 0;
+		for (int i = 0; i < 28; i++) {			// for each pixel in testimage
+			for (int j = 0; j < 28; j++) {
+				if (testing_images[0].image_data[i][j] == '1') {
+					probability += log(global[k][i*28+j]);
+				}
+				else {
+					probability += log(1-global[k][i*28+j]);
+				}
+			}
 		}
+		cout << "The probability that this number is " << k << ": " << probability << endl;
 	}
+
 
 
 }
