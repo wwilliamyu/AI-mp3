@@ -1,20 +1,13 @@
-EXE = mp3
-OBJS = main.cpp sudoku.o chess.o
+all: mp3
 
-COMPILER = g++
-COMPILER_OPTS = -c -g -std=c++11 -Wall -pedantic -Werror 
-LINKER = g++
+mp3: main.o #image_set.o
+	g++ main.o -o mp3
 
-all : $(EXE) 
+main.o: image.h main.cpp
+	g++ -c main.cpp
 
-$(EXE) : $(OBJS)
-	$(LINKER) $(OBJS) -o $(EXE)
+#imageSet.o: image_set.h image_set.cpp
+#	g++ -c image_set.cpp
 
-sudoku.o : sudoku.h sudoku.cpp
-	$(COMPILER) $(COMPILER_OPTS) sudoku.cpp
-
-chess.o : chess.h chess.cpp
-	$(COMPILER) $(COMPILER_OPTS) chess.cpp
-
-clean :
-	-rm -f *.o $(EXE)
+clean:
+	rm -rf *o mp3
