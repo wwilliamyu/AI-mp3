@@ -10,7 +10,6 @@ class Image {
 	
 	public:
 		
-		int predicted_number;
 		int real_number;
 		vector<string> string_image;
 		vector< vector<char> > image_data;
@@ -27,19 +26,7 @@ class Image {
 			real_number = real_label;
 			populateImageData();
 		};
-
-		char getchar(int x, int y) {
-			return image_data[x][y];
-		}
-
-		int get_real_num() {
-			return real_number;
-		};
-
-		int get_predicted_num()
-		{
-			return predicted_number;
-		};
+		
 
 		void print() {
 			for (int x = 0; x < 28; x++) {
@@ -48,7 +35,8 @@ class Image {
 				}
 				cout << "\n";
 			}
-			cout << "The image's real number is: " << real_number << endl;
+			cout << endl;
+			//cout << "The image's real number is: " << real_number << endl;
 		};
 
 		void populateImageData() {
