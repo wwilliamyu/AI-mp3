@@ -411,7 +411,7 @@ void odds(int r, int c, vector< vector<double> > global) {
 				cout<<"\033[1;36m#\033[0m";
 			}
 			if (log(global[r][i*28+j])-log(global[c][i*28+j]) < -1 && log(global[r][i*28+j])-log(global[c][i*28+j]) >= -2){
-				cout<<"\033[1;36m#\033[0m";
+				cout<<"\033[1;37m#\033[0m";
 			}
 			if (log(global[r][i*28+j])-log(global[c][i*28+j]) < -2){
 				cout<<"\033[1;32m#\033[0m";
